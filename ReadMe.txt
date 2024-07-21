@@ -27,5 +27,5 @@ Note : Type Data Int ada Error di generate code bisa nyontek yang product.
 Project Info
 Application     : 
 Domain          : 
-Infrastructure  : 
+Infrastructure  : Seeder ,
 Server.UI       : Web UI
