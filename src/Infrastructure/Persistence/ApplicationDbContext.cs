@@ -5,6 +5,7 @@ using System.Reflection;
 using CleanArchitecture.Blazor.Domain.Common.Entities;
 using CleanArchitecture.Blazor.Domain.Identity;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using static CleanArchitecture.Blazor.Infrastructure.PermissionSet.Permissions;
 
 namespace CleanArchitecture.Blazor.Infrastructure.Persistence;
 
@@ -27,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<
     public DbSet<KeyValue> KeyValues { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -15,6 +15,22 @@ public class MenuService : IMenuService
                 new() { Title = "Home", Icon = Icons.Material.Filled.Home, Href = "/" },
                 new()
                 {
+                    Title = "Common Master",
+                    Icon = Icons.Material.Filled.ShoppingCart,
+                    PageStatus = PageStatus.Completed,
+                    IsParent = true,
+                    MenuItems = new List<MenuSectionSubItemModel>
+                    {
+                        new()
+                        {
+                            Title = "Kendaraan",
+                            Href = "/pages/vehicles",
+                            PageStatus = PageStatus.Completed
+                        },
+                    }
+                },
+                new()
+                {
                     Title = "E-Commerce",
                     Icon = Icons.Material.Filled.ShoppingCart,
                     PageStatus = PageStatus.Completed,
@@ -31,6 +47,12 @@ public class MenuService : IMenuService
                         {
                             Title = "Documents",
                             Href = "/pages/documents",
+                            PageStatus = PageStatus.Completed
+                        },
+                        new()
+                        {
+                            Title = "Customer",
+                            Href = "/pages/customers",
                             PageStatus = PageStatus.Completed
                         }
                     }
