@@ -16,7 +16,7 @@ public class MenuService : IMenuService
                 new()
                 {
                     Title = "Common Master",
-                    Icon = Icons.Material.Filled.ShoppingCart,
+                    Icon = Icons.Material.Filled.Dataset,
                     PageStatus = PageStatus.Completed,
                     IsParent = true,
                     MenuItems = new List<MenuSectionSubItemModel>
@@ -27,11 +27,67 @@ public class MenuService : IMenuService
                             Href = "/pages/vehicles",
                             PageStatus = PageStatus.Completed
                         },
+                        new()
+                        {
+                            Title = "Sarfas",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
+                        },
+                        new()
+                        {
+                            Title = "Plant",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
+                        },
                     }
                 },
                 new()
                 {
-                    Title = "E-Commerce",
+                    Title = "Main Menu",
+                    Icon = Icons.Material.Filled.Domain,
+                    PageStatus = PageStatus.Completed,
+                    IsParent = true,
+                    MenuItems = new List<MenuSectionSubItemModel>
+                    {
+                        new()
+                        {
+                            Title = "Status Kendaraan",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
+                        },
+                        new()
+                        {
+                            Title = "Status Sarfas",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
+                        },
+                        new()
+                        {
+                            Title = "Request Perbaikan",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
+                        },
+                    }
+                },
+                new()
+                {
+                    Title = "Report",
+                    Icon = Icons.Material.Filled.Report,
+                    PageStatus = PageStatus.Completed,
+                    IsParent = true,
+                    MenuItems = new List<MenuSectionSubItemModel>
+                    {
+                        new()
+                        {
+                            Title = "Hitorical Maintenance",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
+                        },
+                    }
+                },
+                new()
+                {
+                    Title = "Sample",
                     Icon = Icons.Material.Filled.ShoppingCart,
                     PageStatus = PageStatus.Completed,
                     IsParent = true,
@@ -57,30 +113,6 @@ public class MenuService : IMenuService
                         }
                     }
                 },
-                new()
-                {
-                    Title = "Analytics",
-                    Roles = new[] { RoleName.Admin, RoleName.Users },
-                    Icon = Icons.Material.Filled.Analytics,
-                    Href = "/analytics",
-                    PageStatus = PageStatus.ComingSoon
-                },
-                new()
-                {
-                    Title = "Banking",
-                    Roles = new[] { RoleName.Admin, RoleName.Users },
-                    Icon = Icons.Material.Filled.Money,
-                    Href = "/banking",
-                    PageStatus = PageStatus.ComingSoon
-                },
-                new()
-                {
-                    Title = "Booking",
-                    Roles = new[] { RoleName.Admin, RoleName.Users },
-                    Icon = Icons.Material.Filled.CalendarToday,
-                    Href = "/booking",
-                    PageStatus = PageStatus.ComingSoon
-                }
             }
         },
         new MenuSectionModel
@@ -119,6 +151,12 @@ public class MenuService : IMenuService
                             Title = "Profile",
                             Href = "/user/profile",
                             PageStatus = PageStatus.Completed
+                        },
+                        new()
+                        {
+                            Title = "Backup DB",
+                            Href = "#",
+                            PageStatus = PageStatus.ComingSoon
                         }
                     }
                 },

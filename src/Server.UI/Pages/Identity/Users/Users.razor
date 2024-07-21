@@ -574,7 +574,7 @@
         }
         else
         {
-            await UserManager.AddToRoleAsync(user, RoleName.Basic);
+            await UserManager.AddToRoleAsync(user, RoleName.Operation);
         }
     }
 
@@ -589,7 +589,7 @@
     }
     private async Task OnCreate()
     {
-        var model = new ApplicationUserDto { Provider = "Local", Email = "", UserName = "", AssignedRoles = new[] { RoleName.Basic } };
+        var model = new ApplicationUserDto { Provider = "Local", Email = "", UserName = "", AssignedRoles = new[] { RoleName.Operation } };
         await ShowCreateUserDialog(model, L["Create a new user"]);
     }
 
@@ -957,7 +957,7 @@
                 var identityResult = await UserManager.CreateAsync(user);
                 if (identityResult.Succeeded)
                 {
-                    await UserManager.AddToRolesAsync(user, new[] { RoleName.Basic });
+                    await UserManager.AddToRolesAsync(user, new[] { RoleName.Operation });
                 }
                 else
                 {

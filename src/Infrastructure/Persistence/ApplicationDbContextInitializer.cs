@@ -88,7 +88,8 @@ public class ApplicationDbContextInitializer
 
         // Default roles
         var administratorRole = new ApplicationRole(RoleName.Admin) { Description = "Admin Group", TenantId= _context.Tenants.First().Id };
-        var userRole = new ApplicationRole(RoleName.Basic) { Description = "Basic Group", TenantId = _context.Tenants.First().Id };
+        var operationRole = new ApplicationRole(RoleName.Operation) { Description = "Operation Group PP, HSI, HSSE, GA", TenantId = _context.Tenants.First().Id };
+        var maintenanceRole = new ApplicationRole(RoleName.Maintenance) { Description = "Maintenance Group", TenantId = _context.Tenants.First().Id };
         var permissions = GetAllPermissions();
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
@@ -99,12 +100,21 @@ public class ApplicationDbContextInitializer
                     new Claim(ApplicationClaimTypes.Permission, permission));
         }
 
-        if (_roleManager.Roles.All(r => r.Name != userRole.Name))
+        if (_roleManager.Roles.All(r => r.Name != operationRole.Name))
         {
-            await _roleManager.CreateAsync(userRole);
+            await _roleManager.CreateAsync(operationRole);
             foreach (var permission in permissions)
+                //Todo : set Role for Operation
                 if (permission.StartsWith("Permissions.Products"))
-                    await _roleManager.AddClaimAsync(userRole, new Claim(ApplicationClaimTypes.Permission, permission));
+                    await _roleManager.AddClaimAsync(operationRole, new Claim(ApplicationClaimTypes.Permission, permission));
+        }
+        if (_roleManager.Roles.All(r => r.Name != maintenanceRole.Name))
+        {
+            await _roleManager.CreateAsync(maintenanceRole);
+            foreach (var permission in permissions)
+                //Todo : set Role for Maintenance
+                if (permission.StartsWith("Permissions.Products"))
+                    await _roleManager.AddClaimAsync(maintenanceRole, new Claim(ApplicationClaimTypes.Permission, permission));
         }
 
         // Default users
@@ -115,20 +125,29 @@ public class ApplicationDbContextInitializer
             IsActive = true,
             TenantId = _context.Tenants.First().Id,
             DisplayName = UserName.Administrator, Email = "administrator@yourdomain.com", EmailConfirmed = true,
-            ProfilePictureDataUrl = "https://s.gravatar.com/avatar/78be68221020124c23c665ac54e07074?s=80",
+            ProfilePictureDataUrl = "https://gravatar.com/exucupers",
             TwoFactorEnabled = false
         };
-        var demo = new ApplicationUser
+        var operation = new ApplicationUser
         {
-            UserName = UserName.Demo,
+            UserName = UserName.Operation,
             IsActive = true,
             Provider = "Local",
             TenantId = _context.Tenants.First().Id,
-            DisplayName = UserName.Demo, Email = "demo@yourdomain.com",
+            DisplayName = UserName.Operation, Email = "operation@yourdomain.com",
             EmailConfirmed = true,
             ProfilePictureDataUrl = "https://s.gravatar.com/avatar/ea753b0b0f357a41491408307ade445e?s=80"
         };
-
+        var maintenance = new ApplicationUser
+        {
+            UserName = UserName.Maintenance,
+            IsActive = true,
+            Provider = "Local",
+            TenantId = _context.Tenants.First().Id,
+            DisplayName = UserName.Maintenance, Email = "maintenance@yourdomain.com",
+            EmailConfirmed = true,
+            ProfilePictureDataUrl = "https://s.gravatar.com/avatar/78be68221020124c23c665ac54e07074?s=80"
+        };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
@@ -137,10 +156,16 @@ public class ApplicationDbContextInitializer
             //await _userManager.SetTwoFactorEnabledAsync(administrator, true);
         }
 
-        if (_userManager.Users.All(u => u.UserName != demo.UserName))
+        if (_userManager.Users.All(u => u.UserName != operation.UserName))
         {
-            await _userManager.CreateAsync(demo, UserName.DefaultPassword);
-            await _userManager.AddToRolesAsync(demo, new[] { userRole.Name! });
+            await _userManager.CreateAsync(operation, UserName.DefaultPassword);
+            await _userManager.AddToRolesAsync(operation, new[] { operationRole.Name! });
+        }
+        
+        if (_userManager.Users.All(u => u.UserName != maintenance.UserName))
+        {
+            await _userManager.CreateAsync(maintenance, UserName.DefaultPassword);
+            await _userManager.AddToRolesAsync(maintenance, new[] { maintenanceRole.Name! });
         }
 
         // Default data
@@ -179,6 +204,17 @@ public class ApplicationDbContextInitializer
             { Name = Picklist.Unit, Value = "KG", Text = "KG", Description = "Unit of product" });
             _context.KeyValues.Add(new KeyValue
             { Name = Picklist.Unit, Value = "ST", Text = "ST", Description = "Unit of product" });
+
+            _context.KeyValues.Add(new KeyValue
+            { Name = Picklist.JenisKendaraan, Value = "R2", Text = "Roda Dua", Description = "Jenis Kendaraan" });
+            _context.KeyValues.Add(new KeyValue
+            { Name = Picklist.JenisKendaraan, Value = "R4", Text = "Roda Empat", Description = "Jenis Kendaraan" });
+
+            _context.KeyValues.Add(new KeyValue
+            { Name = Picklist.Merk, Value = "Honda", Text = "Honda", Description = "Merk Kendaraan" });
+            _context.KeyValues.Add(new KeyValue
+            { Name = Picklist.Merk, Value = "Tesla", Text = "Tesla", Description = "Merk Kendaraan" });
+
             await _context.SaveChangesAsync();
         }
 

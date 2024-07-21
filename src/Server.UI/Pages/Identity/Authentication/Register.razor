@@ -151,7 +151,7 @@
             return;
         }
 
-        result = await UserManager.AddToRoleAsync(user, RoleName.Basic);
+        result = await UserManager.AddToRoleAsync(user, RoleName.Operation);
         if (!result.Succeeded)
         {
             message = string.Join(" ", result.Errors.Select(error => error.Description));
