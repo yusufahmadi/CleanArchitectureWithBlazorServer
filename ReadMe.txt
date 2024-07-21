@@ -7,13 +7,25 @@
 -- Contoh :
 buat page Kendaraan
 1 Buat Domain/Entity/Vehicle.cs inherit Auditable Entity
-2 Sesuaikan Kolomnya & Buat Migration
+2 Sesuaikan Kolomnya
 3 Buka dan Tambahkan di 2 File Berikut :
     1 => Application/Common/Interface/IApplicationDBContext.cs  DbSet<Vehicle> Vehicles{ get; set; }
     2 => Infrastructure Presistence/ApplicationDBContext.cs     public DbSet<Vehicle> Vehicles { get; set; }
   
 4 Lakukan Menggukana Kode Generator Step di Awal(1-3)
 5 Buka File Server.UI/Services/Navigation/MenuServices.cs (untuk tambahkan di navbar)
-6 Rebuild > Buka Web > Role Pastikan Access Right Sudah di set.
+6 Migration table 
+    > Di Run Pilih "Clean Architecture.Blazor.Server.UI" 
+    > Pkg Manager Console Default Project : Pilih MSSQL
+    > add-migration vehicle
+
+7 Rebuild > Buka Web > Role Pastikan Access Right Sudah di set.
 
 Note : Type Data Int ada Error di generate code bisa nyontek yang product.
+
+
+Project Info
+Application     : 
+Domain          : 
+Infrastructure  : 
+Server.UI       : Web UI
