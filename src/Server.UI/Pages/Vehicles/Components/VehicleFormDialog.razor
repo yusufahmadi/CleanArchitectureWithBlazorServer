@@ -1,4 +1,8 @@
 ﻿@using CleanArchitecture.Blazor.Application.Features.Vehicles.Commands.AddEdit
+@using CleanArchitecture.Blazor.Server.UI.Components.Fusion
+@using CleanArchitecture.Blazor.Domain.Common.Enums
+@using CleanArchitecture.Blazor.Server.UI.Services.JsInterop
+@using System.Collections.Immutable
 
 @inherits MudComponentBase
 @inject IValidationService Validator
@@ -12,44 +16,68 @@
                 <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.Name)]" @bind-Value="model.Name" For="@(() => model.Name)" Required="true" RequiredError="@L["name is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
+                <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.Description)]" Lines="3" For="@(() => model.Description)" @bind-Value="model.Description"></MudTextField>
-                </MudItem> 
-<MudItem xs="12" md="6"> 
-                        <MudTextField Label="@L[model.GetMemberDescription(x=>x.JenisKendaraan)]" @bind-Value="model.JenisKendaraan" For="@(() => model.JenisKendaraan)" Required="false" RequiredError="@L["jenis kendaraan is required!"]"></MudTextField>
-                </MudItem> 
-<MudItem xs="12" md="6"> 
+                </MudItem>
+                @* <MudItem xs="12" md="6">
+                    <MudTextField Label="@L[model.GetMemberDescription(x=>x.JenisKendaraan)]" @bind-Value="model.JenisKendaraan" For="@(() => model.JenisKendaraan)" Required="false" RequiredError="@L["jenis kendaraan is required!"]"></MudTextField>
+                </MudItem> *@
+                <MudItem xs="12" sm="6">
+                    <PicklistAutocomplete Picklist="Picklist.JenisKendaraan"
+                                          Label="@L["Jenis Kendaraan"]"
+                                          For="@(() => model.JenisKendaraan)"
+                                          ResetValueOnEmptyText="true"
+                                          ShowProgressIndicator="true"
+                                          @bind-Value="model.JenisKendaraan">
+                        <ProgressIndicatorTemplate>
+                            <MudProgressLinear Size="MudBlazor.Size.Small" Indeterminate="true" />
+                        </ProgressIndicatorTemplate>
+                    </PicklistAutocomplete>
+                </MudItem>
+                @* <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.Merk)]" @bind-Value="model.Merk" For="@(() => model.Merk)" Required="false" RequiredError="@L["merk is required!"]"></MudTextField>
+                </MudItem>  *@
+                <MudItem xs="12" sm="6">
+                    <PicklistAutocomplete Picklist="Picklist.Merk"
+                                          Label="@L["Merk"]"
+                                          For="@(() => model.Merk)"
+                                          ResetValueOnEmptyText="true"
+                                          ShowProgressIndicator="true"
+                                          @bind-Value="model.Merk">
+                        <ProgressIndicatorTemplate>
+                            <MudProgressLinear Size="MudBlazor.Size.Small" Indeterminate="true" />
+                        </ProgressIndicatorTemplate>
+                    </PicklistAutocomplete>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudTextField Label="@L[model.GetMemberDescription(x=>x.Tipe)]" @bind-Value="model.Tipe" For="@(() => model.Tipe)" Required="false" RequiredError="@L["tipe is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
-                        <MudTextField Label="@L[model.GetMemberDescription(x=>x.Tipe)]" @bind-Value="model.Tipe" For="@(() => model.Tipe)" Required="false" RequiredError="@L["tipe is required!"]"></MudTextField>
+                <MudItem xs="12" md="6">
+                    <MudTextField Label="@L[model.GetMemberDescription(x=>x.NoChasis)]" @bind-Value="model.NoChasis" For="@(() => model.NoChasis)" Required="false" RequiredError="@L["no chasis is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
-                        <MudTextField Label="@L[model.GetMemberDescription(x=>x.NoChasis)]" @bind-Value="model.NoChasis" For="@(() => model.NoChasis)" Required="false" RequiredError="@L["no chasis is required!"]"></MudTextField>
+                <MudItem xs="12" md="6">
+                    <MudTextField Label="@L[model.GetMemberDescription(x=>x.NoRangka)]" @bind-Value="model.NoRangka" For="@(() => model.NoRangka)" Required="false" RequiredError="@L["no rangka is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
-                        <MudTextField Label="@L[model.GetMemberDescription(x=>x.NoRangka)]" @bind-Value="model.NoRangka" For="@(() => model.NoRangka)" Required="false" RequiredError="@L["no rangka is required!"]"></MudTextField>
-                </MudItem> 
-<MudItem xs="12" md="6"> 
+                <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.Pabrikasi)]" @bind-Value="model.Pabrikasi" For="@(() => model.Pabrikasi)" Required="false" RequiredError="@L["pabrikasi is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
-                        <MudTextField Label="@L[model.GetMemberDescription(x=>x.TahunPembuatan)]" @bind-Value="model.TahunPembuatan" For="@(() => model.TahunPembuatan)" Required="false" RequiredError="@L["tahun pembuatan is required!"]"></MudTextField>
+                <MudItem xs="12" md="6">
+                    <MudTextField Label="@L[model.GetMemberDescription(x=>x.TahunPembuatan)]" @bind-Value="model.TahunPembuatan" For="@(() => model.TahunPembuatan)" Required="false" RequiredError="@L["tahun pembuatan is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
+                <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.TahunOperasi)]" @bind-Value="model.TahunOperasi" For="@(() => model.TahunOperasi)" Required="false" RequiredError="@L["tahun operasi is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
+                <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.ServiceA)]" @bind-Value="model.ServiceA" For="@(() => model.ServiceA)" Required="false" RequiredError="@L["service a is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
+                <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.ServiceB)]" @bind-Value="model.ServiceB" For="@(() => model.ServiceB)" Required="false" RequiredError="@L["service b is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
+                <MudItem xs="12" md="6"> 
                         <MudTextField Label="@L[model.GetMemberDescription(x=>x.ServiceC)]" @bind-Value="model.ServiceC" For="@(() => model.ServiceC)" Required="false" RequiredError="@L["service c is required!"]"></MudTextField>
                 </MudItem> 
-<MudItem xs="12" md="6"> 
-                        <MudTextField Label="@L[model.GetMemberDescription(x=>x.LastPerbaikan)]" @bind-Value="model.LastPerbaikan" For="@(() => model.LastPerbaikan)" Required="false" RequiredError="@L["last perbaikan is required!"]"></MudTextField>
+                <MudItem xs="12" md="6">
+                    <MudTextField Label="@L[model.GetMemberDescription(x=>x.LastPerbaikan)]" @bind-Value="model.LastPerbaikan" For="@(() => model.LastPerbaikan)" Required="false" RequiredError="@L["last perbaikan is required!"]" ReadOnly="true"></MudTextField>
                 </MudItem> 
 
             </MudGrid>
