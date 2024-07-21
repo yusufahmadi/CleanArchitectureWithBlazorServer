@@ -26,6 +26,6 @@ Note : Type Data Int ada Error di generate code bisa nyontek yang product.
 
 Project Info
 Application     : 
-Domain          : 
+Domain          : Entity, Enum, Event, Exceptio 
 Infrastructure  : Seeder ,
 Server.UI       : Web UI
